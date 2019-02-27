@@ -14,7 +14,7 @@ class Order extends Model
     protected $fillable = ['year_of_manufacture', 'number_plate', 'physical_address', 'status', 'user_id', 'vehicle_model_id'];
 
     public static $rules = [
-    	"year_of_manufacture" => "required|date"
+    	"year_of_manufacture" => "required|date",
     	"number_plate" => "required",
     	"physical_address" => "required",
     	"status" => "required",

@@ -15,7 +15,7 @@ class RefundController extends Controller
      */
     public function index()
     {
-        $refunds = Refund::all();
+        $refunds = Refund::with('payment.user')->get();
         return response()->json($refunds);
     }
 
@@ -40,7 +40,7 @@ class RefundController extends Controller
      */
     public function show($id)
     {
-        $refund = Refund::find($id);
+        $refund = Refund::with('payment.user')->find($id);
         if(is_null($refund)){
             return response()->json('not_found');
         }
@@ -89,7 +89,7 @@ class RefundController extends Controller
      */
     public function getrefundpayments($id)
     {
-        $refundpayments = Device::all()->where('payment_id', $id);
+        $refundpayments = Refund::with('payment.user')->where('payment_id', $id)->get();
         return response()->json($refundpayments);
     }
 }

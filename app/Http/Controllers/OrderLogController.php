@@ -15,7 +15,7 @@ class OrderLogController extends Controller
      */
     public function index()
     {
-        $orderlogs = OrderLog::all();
+        $orderlogs = OrderLog::with('order.user')->get();
         return response()->json($orderlogs);
     }
 
@@ -40,7 +40,7 @@ class OrderLogController extends Controller
      */
     public function show($id)
     {
-        $orderlog = OrderLog::find($id);
+        $orderlog = OrderLog::with('order.user')->find($id);
         if(is_null($orderlog)){
             return response()->json('not_found');
         }
@@ -89,7 +89,7 @@ class OrderLogController extends Controller
      */
     public function getorderlogs($id)
     {
-        $orderlogs = Device::all()->where('order_id', $id);
+        $orderlogs = OrderLog::with('order.user')->where('order_id', $id)->get();
         return response()->json($orderlogs);
     }
 
@@ -100,8 +100,8 @@ class OrderLogController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function getorderloguser($id, $user_id)
-    {
-        $orderlogs = Device::all()->where(array('order_id' => $id, 'user_id' => $user_id));
+    {   
+        $orderlogs = OrderLog::with('order.user')->where(array('order_id' => $id, 'user_id' => $user_id))->get();
         return response()->json($orderlogs);
     }
 }

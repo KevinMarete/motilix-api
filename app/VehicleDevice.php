@@ -3,17 +3,6 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
-class VehicleDevice extends Model
-{
-    //
-}
-
-<?php
-
-namespace App;
-
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class VehicleDevice extends Model

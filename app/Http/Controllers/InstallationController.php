@@ -15,7 +15,7 @@ class InstallationController extends Controller
      */
     public function index()
     {
-        $installations = Installation::all();
+        $installations = Installation::with('payment.order')->get();
         return response()->json($installations);
     }
 
@@ -40,7 +40,7 @@ class InstallationController extends Controller
      */
     public function show($id)
     {
-        $installation = Installation::find($id);
+        $installation = Installation::with('payment.order')->find($id);
         if(is_null($installation)){
             return response()->json('not_found');
         }

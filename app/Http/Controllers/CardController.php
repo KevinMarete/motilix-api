@@ -15,7 +15,7 @@ class CardController extends Controller
      */
     public function index()
     {
-        $cards = Card::all();
+        $cards = Card::with('user.role')->get();
         return response()->json($cards);
     }
 
@@ -80,4 +80,17 @@ class CardController extends Controller
         $card->delete();
         return response()->json('Removed successfully.');
     }
+
+    /**
+     * Display the specified user cards.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function getusercards($id)
+    {
+        $usercards = Card::with('user')->where('user_id', $id)->get();
+        return response()->json($usercards);
+    }
+    
 }

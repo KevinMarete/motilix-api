@@ -15,7 +15,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::all();
+        $orders = Order::with('user.vehicle_model')->get();
         return response()->json($orders);
     }
 
@@ -40,7 +40,7 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        $order = Order::find($id);
+        $order = Order::with('user.vehicle_model')->find($id);
         if(is_null($order)){
             return response()->json('not_found');
         }
@@ -89,7 +89,20 @@ class OrderController extends Controller
      */
     public function getordermodels($id)
     {
-        $ordermodels = Device::all()->where('vehicle_model_id', $id);
+        $ordermodels = Order::with('user.vehicle_model')->where('vehicle_model_id', $id)->get();
         return response()->json($ordermodels);
     }
+
+    /**
+     * Display the specified user orders.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function getuserorders($id)
+    {
+        $userorders = Order::with('user.vehicle_model')->where('user_id', $id)->get();
+        return response()->json($userorders);
+    }
+
 }

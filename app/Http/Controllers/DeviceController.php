@@ -15,7 +15,7 @@ class DeviceController extends Controller
      */
     public function index()
     {
-        $devices = Device::all();
+        $devices = Device::with('brand')->get();
         return response()->json($devices);
     }
 
@@ -40,7 +40,7 @@ class DeviceController extends Controller
      */
     public function show($id)
     {
-        $device = Device::find($id);
+        $device = Device::with('brand')->find($id);
         if(is_null($device)){
             return response()->json('not_found');
         }
@@ -89,8 +89,8 @@ class DeviceController extends Controller
      */
     public function getbranddevices($id)
     {
-        $branddevices = Device::all()->where('brand_id', $id);
+        $branddevices = Device::with('brand')->where('brand_id', $id)->get();
         return response()->json($branddevices);
     }
-
+    
 }

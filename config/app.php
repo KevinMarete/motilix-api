@@ -28,6 +28,8 @@ return [
 
     'env' => env('APP_ENV', 'production'),
 
+    'app_mail_url' => env('APP_MAIL_CALLBACK', 'www.motilix.com'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Debug Mode
@@ -67,7 +69,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => env('APP_TIMEZONE', 'UTC'),
 
     /*
     |--------------------------------------------------------------------------

@@ -9,7 +9,7 @@ class Subscription extends Model
 {	
 	use SoftDeletes;
 
-    protected $table = 'tbl_subscription';
+    protected $table = 'tbl_payment_subscription';
 
     protected $fillable = ['membership_fee', 'start_date', 'end_date', 'payment_id'];
 

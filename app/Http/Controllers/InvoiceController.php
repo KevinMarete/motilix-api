@@ -15,7 +15,7 @@ class InvoiceController extends Controller
      */
     public function index()
     {
-        $invoices = Invoice::all();
+        $invoices = Invoice::with('payment')->get();
         return response()->json($invoices);
     }
 
@@ -40,7 +40,7 @@ class InvoiceController extends Controller
      */
     public function show($id)
     {
-        $invoice = Invoice::find($id);
+        $invoice = Invoice::with('payment')->find($id);
         if(is_null($invoice)){
             return response()->json('not_found');
         }

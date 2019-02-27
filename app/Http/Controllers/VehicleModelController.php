@@ -15,7 +15,7 @@ class VehicleModelController extends Controller
      */
     public function index()
     {   
-        $vehiclemodels = VehicleModel::all();
+        $vehiclemodels = VehicleModel::with('vehicle')->get();
         return response()->json($vehiclemodels);
     }
 
@@ -40,7 +40,7 @@ class VehicleModelController extends Controller
      */
     public function show($id)
     {
-        $vehiclemodel = VehicleModel::find($id);
+        $vehiclemodel = VehicleModel::with('vehicle')->find($id);
         if(is_null($vehiclemodel)){
             return response()->json('not_found');
         }
@@ -89,7 +89,7 @@ class VehicleModelController extends Controller
      */
     public function getvehiclemodels($id)
     {
-        $vehiclemodels = VehicleModel::all()->where('vehicle_id', $id);
+        $vehiclemodels = VehicleModel::with('vehicle')->where('vehicle_id', $id)->get();
         return response()->json($vehiclemodels);
     }
 }

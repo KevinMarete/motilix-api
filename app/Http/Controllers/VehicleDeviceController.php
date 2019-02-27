@@ -15,7 +15,7 @@ class VehicleDeviceController extends Controller
      */
     public function index()
     {
-        $vehicledevices = VehicleDevice::all();
+        $vehicledevices = VehicleDevice::with('device.user.order')->get();
         return response()->json($vehicledevices);
     }
 
@@ -40,7 +40,7 @@ class VehicleDeviceController extends Controller
      */
     public function show($id)
     {
-        $vehicledevice = VehicleDevice::find($id);
+        $vehicledevice = VehicleDevice::with('device.user.order')->find($id);
         if(is_null($vehicledevice)){
             return response()->json('not_found');
         }
@@ -80,4 +80,17 @@ class VehicleDeviceController extends Controller
         $vehicledevice->delete();
         return response()->json('Removed successfully.');
     }
+
+    /**
+     * Display the specified user devices.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function getuserdevices($id)
+    {
+        $userdevices = VehicleDevice::with('device.user.order')->where('user_id', $id)->get();
+        return response()->json($userdevices);
+    }
+
 }

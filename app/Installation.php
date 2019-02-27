@@ -9,7 +9,7 @@ class Installation extends Model
 {	
 	use SoftDeletes;
 
-    protected $table = 'tbl_installation';
+    protected $table = 'tbl_payment_installation';
 
     protected $fillable = ['initial_fee', 'payment_id'];
 

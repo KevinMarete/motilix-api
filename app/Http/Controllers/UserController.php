@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Subscription;
+use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class SubscriptionController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,8 @@ class SubscriptionController extends Controller
      */
     public function index()
     {
-        $subscriptions = Subscription::with('payment')->get();
-        return response()->json($subscriptions);
+        $users = User::with('role')->get();
+        return response()->json($users);
     }
 
     /**
@@ -27,9 +27,9 @@ class SubscriptionController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, Subscription::$rules);
-        $subscription = Subscription::create($request->all());
-        return response()->json($subscription);
+        $this->validate($request, User::$rules);
+        $user = User::create($request->all());
+        return response()->json($user);
     }
 
     /**
@@ -40,11 +40,11 @@ class SubscriptionController extends Controller
      */
     public function show($id)
     {
-        $subscription = Subscription::with('payment')->find($id);
-        if(is_null($subscription)){
+        $user = User::with('role')->find($id);
+        if(is_null($user)){
             return response()->json('not_found');
         }
-        return response()->json($subscription);
+        return response()->json($user);
     }
 
     /**
@@ -56,13 +56,13 @@ class SubscriptionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, Subscription::$rules);
-        $subscription  = Subscription::find($id);
-        if(is_null($subscription)){
+        $this->validate($request, User::$rules);
+        $user  = User::find($id);
+        if(is_null($user)){
             return response()->json('not_found');
         }
-        $subscription->update($request->all());
-        return response()->json($subscription);
+        $user->update($request->all());
+        return response()->json($user);
     }
 
     /**
@@ -73,11 +73,12 @@ class SubscriptionController extends Controller
      */
     public function destroy($id)
     {
-        $subscription = Subscription::find($id);
-        if(is_null($subscription)){
+        $user = User::find($id);
+        if(is_null($user)){
             return response()->json('not_found');
         }
-        $subscription->delete();
+        $user->delete();
         return response()->json('Removed successfully.');
     }
+    
 }
