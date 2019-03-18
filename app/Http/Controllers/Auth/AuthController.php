@@ -52,18 +52,18 @@ class AuthController extends Controller
 	        if (Hash::check($request->password, $user->password)) {
 	        	if(empty($user->email_verified_at)){
 	        		$response = "Email unverified";
-	            	return response(['error' => $response], 403);
+	            	return response(['error' => $response]);
 	        	}
 	            $token = $user->createToken($this->seeder)->accessToken;
 	            $response = ['token' => $token];
 	            return response($response, 200);
 	        } else {
 	            $response = "Password missmatch";
-	            return response(['error' => $response], 422);
+	            return response(['error' => $response]);
 	        }
 	    } else {
 	        $response = 'User does not exist';
-	        return response(['error' => $response], 422);
+	        return response(['error' => $response]);
 	    }
 	}
 
@@ -76,7 +76,7 @@ class AuthController extends Controller
 	}
 
 	public function unauthorized(){
-		return response(['msg'=>'Not authorized'], 401);
+		return response(['error'=>'Not authorized'], 401);
 	}
 
 	public function resetpassword(Request $request){
@@ -148,8 +148,13 @@ class AuthController extends Controller
 
 	public function activateaccountemail(Request $request){
 		$user = User::find($request->id);
-		Mail::send(new ActivateAccountEmail($user));
-		return response(['msg'=> 'Mail sent'], 200);
+		if ($user) {
+			Mail::send(new ActivateAccountEmail($user));
+			return response(['msg'=> 'Mail sent'], 200);
+		} else {
+			$response = 'User does not exist';
+	        return response(['error' => $response], 401);
+	    }
 	}
 
 

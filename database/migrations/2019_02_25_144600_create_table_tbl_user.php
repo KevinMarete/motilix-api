@@ -17,7 +17,6 @@ class CreateTableTblUser extends Migration
             $table->increments('id');
             $table->string('firstname');
             $table->string('surname');
-            $table->string('country_code', 5);
             $table->string('phone_number', 20);
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
@@ -27,7 +26,7 @@ class CreateTableTblUser extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->unique(['country_code', 'phone_number', 'email', 'role_id']);
+            $table->unique(['phone_number', 'email', 'role_id']);
 
             $table->foreign('role_id')->references('id')->on('tbl_role')->onUpdate('cascade')->onDelete('cascade');
         });

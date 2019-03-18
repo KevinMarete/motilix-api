@@ -23,7 +23,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = ['firstname', 'surname', 'country_code', 'phone_number', 'email', 'email_verified_at', 'password', 'remember_token', 'role_id'];
+    protected $fillable = ['firstname', 'surname', 'phone_number', 'email', 'email_verified_at', 'password', 'remember_token', 'role_id'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -35,7 +35,6 @@ class User extends Authenticatable
     public static $rules = [
         "firstname" => "required",
         "surname" => "required",
-        "country_code" => "required",
         "phone_number" => "required",
         "email" => "required|email|unique:tbl_user",
         "phone_number" => "required",
