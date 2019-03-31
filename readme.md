@@ -26,7 +26,7 @@ This is the core API for Motilix Web and Mobile Apps
 - /api/v1/brand/<id>/devices --GET
 - /api/v1/device --GET|POST|PUT|DELETE
 - /api/v1/order --GET|POST|PUT|DELETE
-- /api/v1/order/<id>/logs --GET|POST|PUT|DELETE
+- /api/v1/order/<id>/logs --GET
 - /api/v1/order/<id>/logs/<id>/user --GET
 - /api/v1/orderlog --GET|POST|PUT|DELETE
 - /api/v1/card --GET|POST|PUT|DELETE
@@ -39,3 +39,9 @@ This is the core API for Motilix Web and Mobile Apps
 - /api/v1/refund --GET|POST|PUT|DELETE
 - /api/v1/refund/<id>/payments --GET
 - /api/v1/vehicledevice --GET|POST|PUT|DELETE
+- /api/v1/trip --GET
+- /api/v1/devicetrips --POST
+- /api/v1/health --GET
+- /api/v1/trip/<id>/health --GET
+- /api/v1/alert --GET
+- /api/v1/trip/<id>/alerts --GET

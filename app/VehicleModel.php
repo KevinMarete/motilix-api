@@ -11,10 +11,11 @@ class VehicleModel extends Model
 
     protected $table = 'tbl_vehicle_model';
 
-    protected $fillable = ['name', 'is_supported', 'vehicle_id'];
+    protected $fillable = ['name', 'manufacture_year', 'is_supported', 'vehicle_id'];
 
     public static $rules = [
-    	"name" => "required",
+        "name" => "required",
+        "manufacture_year" => "required|numeric",
 		"is_supported" => "required|boolean",
         "vehicle_id" => "required|numeric"
 	];

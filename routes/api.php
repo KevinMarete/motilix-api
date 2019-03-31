@@ -54,5 +54,11 @@ Route::group(['middleware' => ['json.response'],'prefix' => 'v1'], function () {
 		Route::get('/refund/{id}/payments', 'RefundController@getrefundpayments');
 		Route::resource('/refund', 'RefundController');
 		Route::resource('/vehicledevice', 'VehicleDeviceController');
+		Route::post('/devicetrips', 'TripController@getdevicetrips')->name('devicetrips');
+		Route::resource('/trip', 'TripController');
+		Route::get('/trip/{id}/health', 'HealthController@gettriphealth');
+		Route::resource('/health', 'HealthController');
+		Route::get('/trip/{id}/alerts', 'AlertController@gettripalerts');
+		Route::resource('/alert', 'AlertController');
     });
 });

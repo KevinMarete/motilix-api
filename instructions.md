@@ -53,6 +53,9 @@ php artisan make:model Subscription
 php artisan make:model Invoice
 php artisan make:model Refund
 php artisan make:model VehicleDevice
+php artisan make:model Trip
+php artisan make:model Health
+php artisan make:model Alert
 
 Controllers & Resources
 ------------------------
@@ -71,6 +74,9 @@ php artisan make:controller SubscriptionController --resource
 php artisan make:controller InvoiceController --resource
 php artisan make:controller RefundController --resource
 php artisan make:controller VehicleDeviceController --resource
+php artisan make:controller TripController --resource
+php artisan make:controller HealthController --resource
+php artisan make:controller AlertController --resource
 
 Endpoints
 -------------
@@ -96,7 +102,7 @@ Endpoints
 /api/v1/brand/<id>/devices --GET
 /api/v1/device --GET|POST|PUT|DELETE
 /api/v1/order --GET|POST|PUT|DELETE
-/api/v1/order/<id>/logs --GET|POST|PUT|DELETE
+/api/v1/order/<id>/logs --GET
 /api/v1/order/<id>/logs/<id>/user --GET
 /api/v1/orderlog --GET|POST|PUT|DELETE
 /api/v1/card --GET|POST|PUT|DELETE
@@ -109,3 +115,9 @@ Endpoints
 /api/v1/refund --GET|POST|PUT|DELETE
 /api/v1/refund/<id>/payments --GET
 /api/v1/vehicledevice --GET|POST|PUT|DELETE
+/api/v1/trip --GET
+/api/v1/devicetrips --POST
+/api/v1/health --GET
+/api/v1/trip/<id>/health --GET
+/api/v1/alert --GET
+/api/v1/trip/<id>/alerts --GET

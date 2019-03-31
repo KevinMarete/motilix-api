@@ -11,17 +11,17 @@ class VehicleDevice extends Model
 
     protected $table = 'tbl_vehicle_device';
 
-    protected $fillable = ['device_id', 'user_id', 'order_id'];
+    protected $fillable = ['device', 'user_id', 'order_id'];
 
     public static $rules = [
-    	"device_id" => "required|numeric",
+    	"device" => "required",
     	"user_id" => "required|numeric",
         "order_id" => "required|numeric"
 	];
 
-	public function device()
+	public function deviceinfo()
     {
-        return $this->belongsTo('App\Device');
+        return $this->belongsTo('App\Device', 'device', 'serial_number');
     }
 
     public function user()

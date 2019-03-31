@@ -16,6 +16,7 @@ class CreateTableTblModel extends Migration
         Schema::create('tbl_model', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->integer('manufacture_year')->unsigned();
             $table->boolean('is_supported');
             $table->integer('vehicle_id')->unsigned();
             $table->timestamps();

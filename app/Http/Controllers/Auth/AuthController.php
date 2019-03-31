@@ -132,7 +132,6 @@ class AuthController extends Controller
 			if(empty($email_exists)){
 				$user->firstname = $request->firstname;
 				$user->surname = $request->surname;
-				$user->country_code = $request->country_code;
 				$user->phone_number = $request->phone_number;
 				$user->email = $request->email;
 				$user->save();
