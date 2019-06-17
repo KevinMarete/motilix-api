@@ -167,4 +167,37 @@ class AuthController extends Controller
 	        return response(['error' => $response], 401);
 	    }
 	}
+
+	public function activateaccountcode(Request $request){
+		$user = User::find($request->id);
+		if ($user) {
+			$seedstr='motilix';
+			$code = strtoupper(substr(md5($user->id.$user->email.$seedstr), 0, 4));
+			return response(['code'=> $code], 200);
+		} else {
+			$response = 'User does not exist';
+	        return response(['error' => $response], 401);
+	    }
+	}
+
+	public function verifyaccountcode(Request $request){
+		$user = User::find($request->id);
+		if ($user) {
+			$seedstr='motilix';
+			$code = strtoupper(substr(md5($user->id.$user->email.$seedstr), 0, 4));
+			if($code == $request->code){
+				if(empty($user->email_verified_at)){
+	        		$user->email_verified_at = date('Y-m-d H:i:s');
+	        		$user->save();
+	        	}
+				return response(['msg'=> 'Account verified'], 200);
+			}else{
+				$response = 'Account not verified';
+	        	return response(['error' => $response], 401);
+			}
+		} else {
+			$response = 'User does not exist';
+	        return response(['error' => $response], 401);
+	    }
+	}
 }

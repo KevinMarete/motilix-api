@@ -14,6 +14,8 @@ This is the core API for Motilix Web and Mobile Apps
 - /api/v1/changepassword --POST
 - /api/v1/profile --GET|PUT
 - /api/v1/logout --POST
+- /api/v1/activateaccountcode --GET
+- /api/v1/verifyaccountcode --POST
 - /api/v1/user/<id>/orders --GET
 - /api/v1/user/<id>/cards --GET
 - /api/v1/user/<id>/devices --GET
