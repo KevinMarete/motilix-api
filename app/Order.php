@@ -11,12 +11,16 @@ class Order extends Model
 
     protected $table = 'tbl_order';
 
-    protected $fillable = ['year_of_manufacture', 'number_plate', 'physical_address', 'status', 'user_id', 'vehicle_model_id'];
+    protected $fillable = ['year_of_manufacture', 'number_plate', 'location', 'location_details', 'preferred_delivery_date', 'preferred_delivery_time', 'other_details', 'status', 'user_id', 'vehicle_model_id'];
 
     public static $rules = [
     	"year_of_manufacture" => "required|date",
     	"number_plate" => "required",
-    	"physical_address" => "required",
+        "location" => "required",
+        "location_details" => "required",
+        "preferred_delivery_date" => "required|date",
+        "preferred_delivery_time" => "required",
+        "other_details" => "required",
     	"status" => "required",
 		"user_id" => "required|numeric",
         "vehicle_model_id" => "required|numeric"
