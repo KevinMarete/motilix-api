@@ -200,4 +200,43 @@ class AuthController extends Controller
 	        return response(['error' => $response], 401);
 	    }
 	}
+
+	public function pricing(Request $request){
+		$pricelist = array(
+			'monthly' => array(
+				'total_cost' => '$170',
+				'unit_cost' => '$10/Month',
+				'features' => array(
+					'$50 MOTILIX Device Fee - ONE TIME',
+					'Real-Time Vehicle Location',
+					'Daily Vehicle Check',
+					'Unlimited Fault Alerts',
+					'Help Center Support'
+				)
+			),
+			'bi-annual' => array(
+				'total_cost' => '$148',
+				'unit_cost' => '$9/Month',
+				'features' => array(
+					'$40 MOTILIX Device Fee - ONE TIME',
+					'Real-Time Vehicle Location',
+					'Daily Vehicle Check',
+					'Unlimited Fault Alerts',
+					'Help Center Support'
+				)
+			),
+			'annual' => array(
+				'total_cost' => '$126',
+				'unit_cost' => '$8/Month',
+				'features' => array(
+					'$30 MOTILIX Device Fee - ONE TIME',
+					'Real-Time Vehicle Location',
+					'Daily Vehicle Check',
+					'Unlimited Fault Alerts',
+					'Help Center Support'
+				)
+			)
+		);
+		return response($pricelist, 200);
+	}
 }

@@ -24,6 +24,7 @@ Route::group(['middleware' => ['json.response'],'prefix' => 'v1'], function () {
 	Route::post('/resetpassword', 'Auth\AuthController@resetpassword')->name('resetpassword');
 	Route::get('/activateaccountcode', 'Auth\AuthController@activateaccountcode')->name('activateaccountcode');
 	Route::post('/verifyaccountcode', 'Auth\AuthController@verifyaccountcode')->name('verifyaccountcode');
+	Route::get('/pricing', 'Auth\AuthController@pricing')->name('pricing');
 	//Private endpoints
 	Route::middleware('auth:api')->group(function () {
 		Route::post('/logout', 'Auth\AuthController@logout')->name('logout');
