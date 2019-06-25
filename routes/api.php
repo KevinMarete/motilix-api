@@ -25,6 +25,7 @@ Route::group(['middleware' => ['json.response'],'prefix' => 'v1'], function () {
 	Route::get('/activateaccountcode', 'Auth\AuthController@activateaccountcode')->name('activateaccountcode');
 	Route::post('/verifyaccountcode', 'Auth\AuthController@verifyaccountcode')->name('verifyaccountcode');
 	Route::get('/pricing', 'Auth\AuthController@pricing')->name('pricing');
+	Route::get('/pricing/{category}', 'Auth\AuthController@pricing');
 	//Private endpoints
 	Route::middleware('auth:api')->group(function () {
 		Route::post('/logout', 'Auth\AuthController@logout')->name('logout');
@@ -56,9 +57,14 @@ Route::group(['middleware' => ['json.response'],'prefix' => 'v1'], function () {
 		Route::resource('/invoice', 'InvoiceController');
 		Route::get('/refund/{id}/payments', 'RefundController@getrefundpayments');
 		Route::resource('/refund', 'RefundController');
+		Route::post('/activatedevice', 'VehicleDeviceController@activatedevice')->name('activatedevice');
 		Route::resource('/vehicledevice', 'VehicleDeviceController');
+		Route::get('/vehicledevice/{id}/logs', 'VehicleDeviceLogController@getvehicledevicelogs');
+		Route::get('/vehicledevice/{id}/logs/{user_id}/user', 'VehicleDeviceLogController@getvehicledeviceloguser');
+		Route::resource('/vehicledevicelog', 'VehicleDeviceLogController');
 		Route::post('/devicetrips', 'TripController@getdevicetrips')->name('devicetrips');
 		Route::resource('/trip', 'TripController');
+		Route::get('/healthstatus/{device}', 'HealthController@gethealthstatus');
 		Route::get('/trip/{id}/health', 'HealthController@gettriphealth');
 		Route::resource('/health', 'HealthController');
 		Route::get('/trip/{id}/alerts', 'AlertController@gettripalerts');

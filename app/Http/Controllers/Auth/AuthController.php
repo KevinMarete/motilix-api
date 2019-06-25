@@ -27,7 +27,7 @@ class AuthController extends Controller
 	public function activate(Request $request) 
 	{	
 	    $user = User::where('email', $request->email)->first();
-	    if ($user) {
+	    if (!$user->isEmpty()) {
 	        if (Hash::check($request->password, $user->password)) {
 	        	if(empty($user->email_verified_at)){
 	        		$user->email_verified_at = date('Y-m-d H:i:s');
@@ -201,7 +201,13 @@ class AuthController extends Controller
 	    }
 	}
 
-	public function pricing(Request $request){
+	/**
+     * Display the all and specific pricing options.
+     *
+     * @param  string  $category
+     * @return \Illuminate\Http\Response
+     */
+	public function pricing($category = null){
 		$pricelist = array(
 			'monthly' => array(
 				'total_cost' => '$170',
@@ -236,7 +242,11 @@ class AuthController extends Controller
 					'Help Center Support'
 				)
 			)
-		);
+		); 
+
+		if($category !== null){
+			$pricelist = array($category => $pricelist[$category]);
+		}
 		return response($pricelist, 200);
 	}
 }

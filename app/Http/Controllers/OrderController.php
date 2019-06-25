@@ -104,5 +104,5 @@ class OrderController extends Controller
         $userorders = Order::with('user.vehicle_model')->where('user_id', $id)->get();
         return response()->json($userorders);
     }
-
+    
 }
