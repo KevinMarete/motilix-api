@@ -35,6 +35,7 @@ Route::group(['middleware' => ['json.response'],'prefix' => 'v1'], function () {
 		Route::get('/user/{id}/orders', 'OrderController@getuserorders');
 		Route::get('/user/{id}/cards', 'CardController@getusercards');
 		Route::get('/user/{id}/devices', 'VehicleDeviceController@getuserdevices');
+		Route::get('/user/{id}/notification', 'NotificationController@getusernotification');
 		Route::resource('/user', 'UserController');
         Route::resource('/role', 'RoleController');
         Route::resource('/vehicle', 'VehicleController');
@@ -69,5 +70,9 @@ Route::group(['middleware' => ['json.response'],'prefix' => 'v1'], function () {
 		Route::resource('/health', 'HealthController');
 		Route::get('/trip/{id}/alerts', 'AlertController@gettripalerts');
 		Route::resource('/alert', 'AlertController');
+		Route::resource('/centre', 'CentreController');
+		Route::get('/servicehistory/{device}', 'ServiceController@getservicehistory')->name('servicehistory');
+		Route::resource('/service', 'ServiceController');
+		Route::resource('/notification', 'NotificationController');
     });
 });
