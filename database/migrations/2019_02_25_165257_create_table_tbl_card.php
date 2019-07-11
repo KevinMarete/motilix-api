@@ -26,7 +26,7 @@ class CreateTableTblCard extends Migration
 
             $table->unique(['name_on_card', 'card_number', 'user_id']);
 
-            $table->foreign('user_id')->references('id')->on('tbl_model')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('tbl_vehicle_model')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

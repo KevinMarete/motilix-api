@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableTblModel extends Migration
+class CreateTableTblVehicleModel extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateTableTblModel extends Migration
      */
     public function up()
     {
-        Schema::create('tbl_model', function (Blueprint $table) {
+        Schema::create('tbl_vehicle_model', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->integer('manufacture_year')->unsigned();
@@ -35,6 +35,6 @@ class CreateTableTblModel extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tbl_model');
+        Schema::dropIfExists('tbl_vehicle_model');
     }
 }

@@ -28,7 +28,7 @@ class CreateTableTblOrder extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->unique(['number_plate', 'user_id', 'model_id']);
+            $table->unique(['number_plate', 'user_id', 'vehicle_model_id']);
 
             $table->foreign('user_id')->references('id')->on('tbl_user')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('vehicle_model_id')->references('id')->on('tbl_vehicle_model')->onUpdate('cascade')->onDelete('cascade');
@@ -45,3 +45,4 @@ class CreateTableTblOrder extends Migration
         Schema::dropIfExists('tbl_order');
     }
 }
+
