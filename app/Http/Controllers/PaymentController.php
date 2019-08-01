@@ -15,7 +15,7 @@ class PaymentController extends Controller
      */
     public function index()
     {
-        $payments = Payment::with('card.deviceinfo.pricing')->get();
+        $payments = Payment::with('card','deviceinfo','pricing')->get();
         return response()->json($payments);
     }
 
