@@ -15,7 +15,7 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        $services = Service::with('deviceinfo.centre')->get();
+        $services = Service::with('centre')->get();
         return response()->json($services);
     }
 
