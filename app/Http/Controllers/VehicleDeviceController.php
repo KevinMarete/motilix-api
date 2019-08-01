@@ -15,7 +15,7 @@ class VehicleDeviceController extends Controller
      */
     public function index()
     {
-        $vehicledevices = VehicleDevice::with('deviceinfo.user.order')->get();
+        $vehicledevices = VehicleDevice::with('deviceinfo','user','order')->get();
         return response()->json($vehicledevices);
     }
 
