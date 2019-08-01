@@ -27,7 +27,7 @@ class AuthController extends Controller
 	public function activate(Request $request) 
 	{	
 	    $user = User::where('email', $request->email)->first();
-	    if (!$user->isEmpty()) {
+	    if ($user) {
 	        if (Hash::check($request->password, $user->password)) {
 	        	if(empty($user->email_verified_at)){
 	        		$user->email_verified_at = date('Y-m-d H:i:s');
@@ -199,54 +199,5 @@ class AuthController extends Controller
 			$response = 'User does not exist';
 	        return response(['error' => $response], 401);
 	    }
-	}
-
-	/**
-     * Display the all and specific pricing options.
-     *
-     * @param  string  $category
-     * @return \Illuminate\Http\Response
-     */
-	public function pricing($category = null){
-		$pricelist = array(
-			'monthly' => array(
-				'total_cost' => '$170',
-				'unit_cost' => '$10/Month',
-				'features' => array(
-					'$50 MOTILIX Device Fee - ONE TIME',
-					'Real-Time Vehicle Location',
-					'Daily Vehicle Check',
-					'Unlimited Fault Alerts',
-					'Help Center Support'
-				)
-			),
-			'bi-annual' => array(
-				'total_cost' => '$148',
-				'unit_cost' => '$9/Month',
-				'features' => array(
-					'$40 MOTILIX Device Fee - ONE TIME',
-					'Real-Time Vehicle Location',
-					'Daily Vehicle Check',
-					'Unlimited Fault Alerts',
-					'Help Center Support'
-				)
-			),
-			'annual' => array(
-				'total_cost' => '$126',
-				'unit_cost' => '$8/Month',
-				'features' => array(
-					'$30 MOTILIX Device Fee - ONE TIME',
-					'Real-Time Vehicle Location',
-					'Daily Vehicle Check',
-					'Unlimited Fault Alerts',
-					'Help Center Support'
-				)
-			)
-		); 
-
-		if($category !== null){
-			$pricelist = array($category => $pricelist[$category]);
-		}
-		return response($pricelist, 200);
 	}
 }
