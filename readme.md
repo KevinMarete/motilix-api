@@ -55,6 +55,7 @@ This is the core API for Motilix Web and Mobile Apps
 - /api/v1/servicehistory/<device> --GET
 - /api/v1/notification --GET|POST|PUT|DELETE
 - /api/v1/user/<id>/notification --GET
+- /api/v1/pricing --GET|POST|PUT|DELETE
 
 ###Passport Issue 
 - https://stackoverflow.com/questions/39414956/laravel-passport-key-path-oauth-public-key-does-not-exist-or-is-not-readable
