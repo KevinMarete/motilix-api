@@ -33,7 +33,7 @@ class Order extends Model
 
     public function vehiclemodel()
     {
-        return $this->belongsTo('App\VehicleModel');
+        return $this->belongsTo('App\VehicleModel', 'vehicle_model_id', 'id');
     }
 
     public function logs()

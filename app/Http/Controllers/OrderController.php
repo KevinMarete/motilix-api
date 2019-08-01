@@ -15,7 +15,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::with('user.vehicle_model')->get();
+        $orders = Order::with('user','vehicle_model')->get();
         return response()->json($orders);
     }
 
