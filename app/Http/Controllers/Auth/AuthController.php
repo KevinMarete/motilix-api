@@ -27,7 +27,7 @@ class AuthController extends Controller
 	public function activate(Request $request) 
 	{	
 	    $user = User::where('email', $request->email)->first();
-	    if (!$user->isEmpty()) {
+	    if ($user) {
 	        if (Hash::check($request->password, $user->password)) {
 	        	if(empty($user->email_verified_at)){
 	        		$user->email_verified_at = date('Y-m-d H:i:s');
