@@ -89,7 +89,7 @@ class ServiceController extends Controller
      */
     public function getservicehistory($device)
     {
-        $deviceservices = Service::with('deviceinfo.centre')->where('device', $device)->get();
+        $deviceservices = Service::with('deviceinfo','centre')->where('device', $device)->get();
         return response()->json($deviceservices);
     }
 
