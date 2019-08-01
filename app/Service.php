@@ -31,7 +31,7 @@ class Service extends Model
 
     public function centre()
     {
-        return $this->belongsTo('App\Centre');
+        return $this->belongsTo('App\Centre','centre_id','id');
     }
     
 }
