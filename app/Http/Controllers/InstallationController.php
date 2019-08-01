@@ -15,7 +15,7 @@ class InstallationController extends Controller
      */
     public function index()
     {
-        $installations = Installation::with('payment.order')->get();
+        $installations = Installation::with('payment','order')->get();
         return response()->json($installations);
     }
 
