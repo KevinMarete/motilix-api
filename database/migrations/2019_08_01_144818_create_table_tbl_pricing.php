@@ -13,7 +13,7 @@ class CreateTableTblPricing extends Migration
      */
     public function up()
     {
-        Schema::table('tbl_pricing', function (Blueprint $table) {
+        Schema::create('tbl_pricing', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->double('installation_cost', 8, 2);

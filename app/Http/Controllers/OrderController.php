@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Order;
+use App\Customer;
+use Cartalyst\Stripe\Stripe;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -26,9 +28,27 @@ class OrderController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   
+        //Create New Order
         $this->validate($request, Order::$rules);
         $order = Order::create($request->all());
+
+        //Check if user has stripe_id
+        $customer = Customer::with('user')->where('user_id', $request->user_id)->get();
+        if($customer->isEmpty()){
+            //Create new customer on stripe
+            $stripe = new Stripe(env('STRIPE_SECRET'));
+            $customer = $stripe->customers()->create([
+                'name' => $order->user->firstname." ". $order->user->surname,
+                'email' => $order->user->email,
+                'phone' => $order->user->phone_number
+            ]);
+            //Save stripe_id 
+            $customer = new Request(['user_id' => $order->user_id, 'stripe_id' => $customer['id']]);
+            $this->validate($customer, Customer::$rules);
+            $customer = Customer::create($customer->all());
+        }
+
         return response()->json($order);
     }
 
