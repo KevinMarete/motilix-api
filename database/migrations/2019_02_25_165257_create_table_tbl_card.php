@@ -18,7 +18,7 @@ class CreateTableTblCard extends Migration
             $table->string('name_on_card');
             $table->string('card_number');
             $table->string('expiry_period');
-            $table->string('gateway_token');
+            $table->string('gateway_token')->nullable();
             $table->date('subscription_date');
             $table->integer('user_id')->unsigned();
             $table->timestamps();
