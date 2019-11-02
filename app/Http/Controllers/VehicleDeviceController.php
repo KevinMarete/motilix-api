@@ -40,7 +40,7 @@ class VehicleDeviceController extends Controller
      */
     public function show($id)
     {
-        $vehicledevice = VehicleDevice::with('deviceinfo.user.order')->find($id);
+        $vehicledevice = VehicleDevice::with('deviceinfo', 'user', 'order')->find($id);
         if(is_null($vehicledevice)){
             return response()->json('not_found');
         }
@@ -89,7 +89,7 @@ class VehicleDeviceController extends Controller
      */
     public function getuserdevices($id)
     {
-        $userdevices = VehicleDevice::with('deviceinfo.user.order')->where('user_id', $id)->get();
+        $userdevices = VehicleDevice::with('deviceinfo', 'user', 'order')->where('user_id', $id)->get();
         return response()->json($userdevices);
     }
 
@@ -101,7 +101,7 @@ class VehicleDeviceController extends Controller
      */
     public function activatedevice(Request $request)
     {   
-        $vehicledevice = VehicleDevice::with('deviceinfo.user.order')->where(array('order_id' => $request->order_id, 'user_id' => $request->user_id))->get();
+        $vehicledevice = VehicleDevice::with('deviceinfo', 'user', 'order')->where(array('order_id' => $request->order_id, 'user_id' => $request->user_id))->get();
         if (!$vehicledevice->isEmpty()) {
 			$seedstr='motilix';
 			$code = strtoupper(substr(md5($vehicledevice->device.$seedstr), 0, 6));
