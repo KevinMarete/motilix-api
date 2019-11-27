@@ -55,7 +55,7 @@
           </td>
           <td style="text-align: left; border-bottom: 1px dotted #ccbcbc;" bgcolor="#ffffff" colspan="2" >
             <strong>
-              <span style="color: #092d50;">{{$user->country_code}}{{$user->phone_number}}</span>
+              <span style="color: #092d50;">{{$user->phone_number}}</span>
             </strong>
           </td>
         </tr>        
