@@ -160,8 +160,14 @@ class AuthController extends Controller
 	public function forgotpasswordemail(Request $request){
 		$user = User::where('email', $request->email)->first();
 	    if ($user) {
+			//Change Old Password
+			$new_password = str_random(8);
+			$user->password = Hash::make($new_password);
+			$user->save();
+			//Send new_password to email
+			$user->password = $new_password;
 			Mail::send(new ForgotPasswordEmail($user));
-			return response(['msg'=> 'Mail sent'], 200);
+			return response(['msg'=> 'Password was reset and sent to your email!'], 200);
 	    } else {
 	        $response = 'User does not exist';
 	        return response(['error' => $response], 401);

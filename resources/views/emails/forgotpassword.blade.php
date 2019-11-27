@@ -7,7 +7,7 @@
       Dear {{$user->firstname}},
       <br/>
       <br/>
-      The below detailed account has requested for a password reset. If you did not make this request, ignore this email. 
+      The account detailed below has requested for a password reset. 
 
     </div>
 
@@ -55,15 +55,27 @@
           </td>
           <td style="text-align: left; border-bottom: 1px dotted #ccbcbc;" bgcolor="#ffffff" colspan="2" >
             <strong>
-              <span style="color: #092d50;">{{$user->country_code}}{{$user->phone_number}}</span>
+              <span style="color: #092d50;">{{$user->phone_number}}</span>
             </strong>
           </td>
-        </tr>        
+        </tr>  
+        
+        <tr>
+          <td style="text-align: left; border-bottom: 1px dotted #ccbcbc;" colspan="1"  bgcolor="#ffffff" height="20">
+            <strong>
+              <span style="color: #7c7c7c;">New Password:</span>
+            </strong>
+          </td>
+          <td style="text-align: left; border-bottom: 1px dotted #ccbcbc;" bgcolor="#ffffff" colspan="2" >
+            <strong>
+              <span style="color: #092d50;">{{$user->password}}</span>
+            </strong>
+          </td>
+        </tr> 
       </tbody>
     </table>
 
     <div>
-      Click <a href="{{$app_mail_url}}forgotpass?email={{$user->email}}">here</a> to reset your password
 
     </div>
   </main>
