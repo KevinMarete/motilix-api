@@ -52,7 +52,7 @@ class AuthController extends Controller
 	        if (Hash::check($request->password, $user->password)) {
 	        	if(empty($user->email_verified_at)){
 	        		$response = "Email unverified";
-	            	return response(['error' => $response]);
+	            	return response(['error' => $response, 'user_id' => $user->id]);
 	        	}
 	            $token = $user->createToken($this->seeder)->accessToken;
 	            $response = ['token' => $token];
