@@ -15,7 +15,7 @@ class Order extends Model
 
     public static $rules = [
     	"year_of_manufacture" => "required|date",
-    	"number_plate" => "required",
+    	"number_plate" => "required|unique:tbl_order",
         "location" => "required",
         "location_details" => "required",
         "preferred_delivery_date" => "required|date",
