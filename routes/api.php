@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::group(['middleware' => ['json.response'],'prefix' => 'v1'], function () {
+Route::group(['middleware' => ['json.response', 'cors'],'prefix' => 'v1'], function () {
 	//Public endpoints
 	Route::get('/unauthorized', 'Auth\AuthController@unauthorized')->name('unauthorized');
 	Route::post('/register', 'Auth\AuthController@register')->name('register');
