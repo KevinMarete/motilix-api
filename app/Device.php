@@ -11,11 +11,11 @@ class Device extends Model
 
     protected $table = 'tbl_device';
 
-    protected $fillable = ['model', 'input', 'serial_number', 'is_available', 'brand_id'];
+    protected $fillable = ['model', 'sim_number', 'serial_number', 'is_available', 'brand_id'];
 
     public static $rules = [
     	"model" => "required",
-    	"input" => "required",
+    	"sim_number" => "required",
     	"serial_number" => "required",
 		"is_available" => "required|boolean",
         "brand_id" => "required|numeric"
