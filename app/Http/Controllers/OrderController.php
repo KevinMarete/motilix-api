@@ -18,6 +18,8 @@ use Cartalyst\Stripe\Stripe;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ActivateDeviceEmail;
 
 class OrderController extends Controller
 {
@@ -233,7 +235,7 @@ class OrderController extends Controller
                     ]);
 
                     //Update Order Status
-                    $order  = Order::find($request->order_id);
+                    $order = Order::with('user')->find($request->order_id);
                     $order->update(['status' => 'paid']);
 
                     //Add order_log for updated order
@@ -245,7 +247,13 @@ class OrderController extends Controller
 
                     //Update device to not-available
                     $device->is_available = false;
-	        		$device->save();
+                    $device->save();
+                    
+                    //Send activate device code to user email
+                    $seedstr='motilix';
+                    $order->code = strtoupper(substr(md5($device->serial_number.$seedstr), 0, 6));
+                    $order->device = $device->serial_number;
+			        Mail::send(new ActivateDeviceEmail($order));
 
                     DB::commit();
 
@@ -258,8 +266,10 @@ class OrderController extends Controller
                 DB::rollback();
                 echo $e->getMessage();
             }	
+        }else{
+            return response(['error' => 'No available devices to fulfill your order!'], 401);
         }
-        return response(['error' => 'No available devices to fulfill your order!'], 401);
+
     }
     
 }
