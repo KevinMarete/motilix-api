@@ -229,7 +229,6 @@ class OrderController extends Controller
                     $vehicledevicelog = VehicleDeviceLog::create([
                         'status' => 'inactive',
                         'vehicle_device_id' => $vehicledevice->id,
-                        'payment_id' => $payment->id,
                         'user_id' => $request->user_id
                     ]);
 
