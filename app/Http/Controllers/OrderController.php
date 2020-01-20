@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Order;
+use App\OrderLog;
 use App\Customer;
 use Cartalyst\Stripe\Stripe;
 use App\Http\Controllers\Controller;
@@ -49,6 +50,13 @@ class OrderController extends Controller
             $customer = Customer::create($customer->all());
         }
 
+        //Add order_log for new order
+        $order_log = OrderLog::create([
+            'status' => $order->status,
+            'order_id' => $order->id,
+            'user_id' => $order->user->id
+        ]);
+
         return response()->json($order);
     }
 
@@ -82,6 +90,14 @@ class OrderController extends Controller
             return response()->json('not_found');
         }
         $order->update($request->all());
+
+        //Add order_log for updated order
+        $order_log = OrderLog::create([
+            'status' => $order->status,
+            'order_id' => $order->id,
+            'user_id' => $order->user->id
+        ]);
+
         return response()->json($order);
     }
 
