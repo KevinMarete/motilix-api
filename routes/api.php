@@ -43,6 +43,7 @@ Route::group(['middleware' => ['json.response', 'cors'],'prefix' => 'v1'], funct
 		Route::resource('/brand', 'BrandController');
 		Route::get('/brand/{id}/devices', 'DeviceController@getbranddevices');
 		Route::resource('/device', 'DeviceController');
+		Route::post('/checkout', 'OrderController@checkoutorder');
 		Route::resource('/order', 'OrderController');
 		Route::get('/order/{id}/logs', 'OrderLogController@getorderlogs');
 		Route::get('/order/{id}/logs/{user_id}/user', 'OrderLogController@getorderloguser');
