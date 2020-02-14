@@ -49,7 +49,7 @@ Route::group(['middleware' => ['json.response', 'cors'],'prefix' => 'v1'], funct
 		Route::get('/order/{id}/logs/{user_id}/user', 'OrderLogController@getorderloguser');
 		Route::resource('/orderlog', 'OrderLogController');
 		Route::resource('/card', 'CardController');
-		Route::get('/device/{id}/payments', 'PaymentController@getdevicepayments');
+		Route::get('/device/{device}/payments', 'PaymentController@getdevicepayments');
 		Route::get('/card/{id}/payments', 'PaymentController@getcardpayments');
 		Route::resource('/payment', 'PaymentController');
 		Route::resource('/installation', 'InstallationController');

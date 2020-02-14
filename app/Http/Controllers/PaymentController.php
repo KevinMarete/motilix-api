@@ -15,7 +15,7 @@ class PaymentController extends Controller
      */
     public function index()
     {
-        $payments = Payment::with('card','deviceinfo','pricing')->get();
+        $payments = Payment::with('card', 'deviceinfo', 'pricing')->get();
         return response()->json($payments);
     }
 
@@ -40,7 +40,7 @@ class PaymentController extends Controller
      */
     public function show($id)
     {
-        $payment = Payment::with('card.deviceinfo.pricing')->find($id);
+        $payment = Payment::with('card', 'deviceinfo', 'pricing')->find($id);
         if(is_null($payment)){
             return response()->json('not_found');
         }
@@ -87,9 +87,9 @@ class PaymentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function getdevicepayments($id)
+    public function getdevicepayments($device)
     {
-        $devicepayments = Payment::with('card.deviceinfo.pricing')->where('device_id', $id)->get();
+        $devicepayments = Payment::with('card', 'deviceinfo', 'pricing')->where('device', $device)->get();
         return response()->json($devicepayments);
     }
 
@@ -101,7 +101,7 @@ class PaymentController extends Controller
      */
     public function getcardpayments($id)
     {
-        $cardpayments = Payment::with('card.deviceinfo.pricing')->where('card_id', $id)->get();
+        $cardpayments = Payment::with('card', 'deviceinfo', 'pricing')->where('card_id', $id)->get();
         return response()->json($cardpayments);
     }
 
