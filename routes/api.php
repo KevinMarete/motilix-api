@@ -19,8 +19,10 @@ Route::group(['middleware' => ['json.response', 'cors'],'prefix' => 'v1'], funct
 	Route::post('/register', 'Auth\AuthController@register')->name('register');
 	Route::post('/activate', 'Auth\AuthController@activate')->name('activate');
 	Route::post('/login', 'Auth\AuthController@login')->name('login');
+	Route::post('/get-token', 'Auth\AuthController@login')->name('get-token');
 	Route::post('/activateaccountemail', 'Auth\AuthController@activateaccountemail')->name('activateaccountemail');
 	Route::post('/forgotpasswordemail', 'Auth\AuthController@forgotpasswordemail')->name('forgotpasswordemail');
+	Route::post('/reset-secret', 'Auth\AuthController@forgotpasswordemail')->name('reset-secret');
 	Route::post('/resetpassword', 'Auth\AuthController@resetpassword')->name('resetpassword');
 	Route::get('/activateaccountcode', 'Auth\AuthController@activateaccountcode')->name('activateaccountcode');
 	Route::post('/verifyaccountcode', 'Auth\AuthController@verifyaccountcode')->name('verifyaccountcode');
