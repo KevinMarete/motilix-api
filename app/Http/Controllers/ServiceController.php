@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Payment;
+use App\Service;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class PaymentController extends Controller
+class ServiceController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,8 @@ class PaymentController extends Controller
      */
     public function index()
     {
-        $payments = Payment::with('card', 'deviceinfo', 'pricing')->get();
-        return response()->json($payments);
+        $services = Service::with('centre')->get();
+        return response()->json($services);
     }
 
     /**
@@ -27,9 +27,9 @@ class PaymentController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, Payment::$rules);
-        $payment = Payment::create($request->all());
-        return response()->json($payment);
+        $this->validate($request, Service::$rules);
+        $service = Service::create($request->all());
+        return response()->json($service);
     }
 
     /**
@@ -40,11 +40,11 @@ class PaymentController extends Controller
      */
     public function show($id)
     {
-        $payment = Payment::with('card', 'deviceinfo', 'pricing')->find($id);
-        if(is_null($payment)){
+        $service = Service::find($id);
+        if(is_null($service)){
             return response()->json('not_found');
         }
-        return response()->json($payment);
+        return response()->json($service);
     }
 
     /**
@@ -56,13 +56,13 @@ class PaymentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, Payment::$rules);
-        $payment  = Payment::find($id);
-        if(is_null($payment)){
+        $this->validate($request, Service::$rules);
+        $service  = Service::find($id);
+        if(is_null($service)){
             return response()->json('not_found');
         }
-        $payment->update($request->all());
-        return response()->json($payment);
+        $service->update($request->all());
+        return response()->json($service);
     }
 
     /**
@@ -73,36 +73,24 @@ class PaymentController extends Controller
      */
     public function destroy($id)
     {
-        $payment = Payment::find($id);
-        if(is_null($payment)){
+        $service = Service::find($id);
+        if(is_null($service)){
             return response()->json('not_found');
         }
-        $payment->delete();
+        $service->delete();
         return response()->json('Removed successfully.');
     }
 
     /**
-     * Display the specified device payments.
+     * Display the specified device service history.
      *
-     * @param  int  $id
+     * @param  string  $device
      * @return \Illuminate\Http\Response
      */
-    public function getdevicepayments($device)
+    public function getservicehistory($device)
     {
-        $devicepayments = Payment::with('card', 'deviceinfo', 'pricing')->where('device', $device)->get();
-        return response()->json($devicepayments);
-    }
-
-    /**
-     * Display the specified card payments.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function getcardpayments($id)
-    {
-        $cardpayments = Payment::with('card', 'deviceinfo', 'pricing')->where('card_id', $id)->get();
-        return response()->json($cardpayments);
+        $deviceservices = Service::with('deviceinfo','centre')->where('device', $device)->get();
+        return response()->json($deviceservices);
     }
 
 }

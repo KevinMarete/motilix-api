@@ -46,4 +46,16 @@ class HealthController extends Controller
         return response()->json($tripheath);
     }
 
+    /**
+     * Display the latest health for a specific device.
+     *
+     * @param  string  $device
+     * @return \Illuminate\Http\Response
+     */
+    public function gethealthstatus($device)
+    {
+        $tripheath = Health::with('trip.deviceinfo.brand')->where('device', $device)->orderBy('status_time', 'desc')->first();
+        return response()->json($tripheath);
+    }
+
 }

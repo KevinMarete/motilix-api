@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\VehicleDevice;
+use App\VehicleDeviceLog;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -15,7 +16,7 @@ class VehicleDeviceController extends Controller
      */
     public function index()
     {
-        $vehicledevices = VehicleDevice::with('device.user.order')->get();
+        $vehicledevices = VehicleDevice::with('deviceinfo','user','order')->get();
         return response()->json($vehicledevices);
     }
 
@@ -40,7 +41,7 @@ class VehicleDeviceController extends Controller
      */
     public function show($id)
     {
-        $vehicledevice = VehicleDevice::with('device.user.order')->find($id);
+        $vehicledevice = VehicleDevice::with('deviceinfo', 'user', 'order')->find($id);
         if(is_null($vehicledevice)){
             return response()->json('not_found');
         }
@@ -89,8 +90,48 @@ class VehicleDeviceController extends Controller
      */
     public function getuserdevices($id)
     {
-        $userdevices = VehicleDevice::with('device.user.order')->where('user_id', $id)->get();
+        $userdevices = VehicleDevice::with('deviceinfo', 'user', 'order')->where('user_id', $id)->get();
         return response()->json($userdevices);
+    }
+
+    /**
+     * Activate ordered device.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function activatedevice(Request $request)
+    {   
+        $vehicledevice = VehicleDevice::with('deviceinfo', 'user', 'order')->where(array('order_id' => $request->order_id, 'user_id' => $request->user_id))->first();
+        if ($vehicledevice && $vehicledevice['status'] != 'active') {
+			$seedstr='motilix';
+            $code = strtoupper(substr(md5($vehicledevice['device'].$seedstr), 0, 6));
+			if($code == $request->code){
+				if(empty($vehicledevice->device_activated_at)){
+                    $vehicledevice->status = 'active';
+	        		$vehicledevice->device_activated_at = date('Y-m-d H:i:s');
+	        		$vehicledevice->save();
+                }
+                //Create vehicle device log
+                $vehicledevicelog = VehicleDeviceLog::create([
+                    'status' => 'active',
+                    'vehicle_device_id' => $vehicledevice->id,
+                    'user_id' => $request->user_id
+                ]);
+				return response(['msg'=> 'Vehicle Device activated!'], 200);
+			}else{
+				$response = 'Vehicle Device was not activated!';
+	        	return response(['error' => $response], 401);
+			}
+        } 
+        else if ($vehicledevice['status'] == 'active'){
+            $response = 'Vehicle Device is already activated!';
+	        return response(['error' => $response], 401);
+        }
+        else {
+			$response = 'Vehicle Device does not exist!';
+	        return response(['error' => $response], 401);
+	    }
     }
 
 }

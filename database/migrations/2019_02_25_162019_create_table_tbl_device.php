@@ -23,6 +23,7 @@ class CreateTableTblDevice extends Migration
             $table->timestamps();
             $table->softDeletes();
 
+            $table->unique(['serial_number']);
             $table->unique(['brand_id', 'model', 'input', 'serial_number']);
 
             $table->foreign('brand_id')->references('id')->on('tbl_brand')->onUpdate('cascade')->onDelete('cascade');

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableTblVehicleModel extends Migration
+class CreateTableTblPricing extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,18 @@ class CreateTableTblVehicleModel extends Migration
      */
     public function up()
     {
-        Schema::create('tbl_vehicle_model', function (Blueprint $table) {
+        Schema::create('tbl_pricing', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->integer('manufacture_year')->unsigned();
-            $table->boolean('is_supported');
-            $table->integer('vehicle_id')->unsigned();
+            $table->double('installation_cost', 8, 2);
+            $table->double('subscription_cost', 8, 2);
+            $table->double('total_cost', 8, 2);
+            $table->integer('payment_after_months')->unsigned();
+            $table->json('features');
             $table->timestamps();
             $table->softDeletes();
 
-            $table->unique(['vehicle_id', 'name']);
-
-            $table->foreign('vehicle_id')->references('id')->on('tbl_vehicle')->onUpdate('cascade')->onDelete('cascade');
+            $table->unique(['name']);
         });
     }
 
@@ -35,6 +35,6 @@ class CreateTableTblVehicleModel extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tbl_vehicle_model');
+        Schema::dropIfExists('tbl_pricing');
     }
 }

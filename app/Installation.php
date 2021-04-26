@@ -11,7 +11,7 @@ class Installation extends Model
 
     protected $table = 'tbl_payment_installation';
 
-    protected $fillable = ['initial_fee', 'payment_id'];
+    protected $fillable = ['initial_fee', 'payment_id', 'order_id'];
 
     public static $rules = [
     	"initial_fee" => "required|numeric",

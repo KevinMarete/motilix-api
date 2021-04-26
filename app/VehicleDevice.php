@@ -11,10 +11,11 @@ class VehicleDevice extends Model
 
     protected $table = 'tbl_vehicle_device';
 
-    protected $fillable = ['device', 'user_id', 'order_id'];
+    protected $fillable = ['device', 'status', 'user_id', 'order_id'];
 
     public static $rules = [
-    	"device" => "required",
+        "device" => "required",
+        "status" => "required",
     	"user_id" => "required|numeric",
         "order_id" => "required|numeric"
 	];

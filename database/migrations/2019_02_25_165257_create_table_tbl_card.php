@@ -18,7 +18,7 @@ class CreateTableTblCard extends Migration
             $table->string('name_on_card');
             $table->string('card_number');
             $table->string('expiry_period');
-            $table->string('gateway_token');
+            $table->string('gateway_token')->nullable();
             $table->date('subscription_date');
             $table->integer('user_id')->unsigned();
             $table->timestamps();
@@ -26,7 +26,7 @@ class CreateTableTblCard extends Migration
 
             $table->unique(['name_on_card', 'card_number', 'user_id']);
 
-            $table->foreign('user_id')->references('id')->on('tbl_model')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('tbl_vehicle_model')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

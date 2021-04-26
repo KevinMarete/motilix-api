@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Payment;
+use App\Notification;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class PaymentController extends Controller
+class NotificationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,8 @@ class PaymentController extends Controller
      */
     public function index()
     {
-        $payments = Payment::with('card', 'deviceinfo', 'pricing')->get();
-        return response()->json($payments);
+        $notifications = Notification::with('user')->get();
+        return response()->json($notifications);
     }
 
     /**
@@ -27,9 +27,9 @@ class PaymentController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, Payment::$rules);
-        $payment = Payment::create($request->all());
-        return response()->json($payment);
+        $this->validate($request, Notification::$rules);
+        $notification = Notification::create($request->all());
+        return response()->json($notification);
     }
 
     /**
@@ -40,11 +40,11 @@ class PaymentController extends Controller
      */
     public function show($id)
     {
-        $payment = Payment::with('card', 'deviceinfo', 'pricing')->find($id);
-        if(is_null($payment)){
+        $notification = Notification::find($id);
+        if(is_null($notification)){
             return response()->json('not_found');
         }
-        return response()->json($payment);
+        return response()->json($notification);
     }
 
     /**
@@ -56,13 +56,13 @@ class PaymentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, Payment::$rules);
-        $payment  = Payment::find($id);
-        if(is_null($payment)){
+        $this->validate($request, Notification::$rules);
+        $notification  = Notification::find($id);
+        if(is_null($notification)){
             return response()->json('not_found');
         }
-        $payment->update($request->all());
-        return response()->json($payment);
+        $notification->update($request->all());
+        return response()->json($notification);
     }
 
     /**
@@ -73,36 +73,24 @@ class PaymentController extends Controller
      */
     public function destroy($id)
     {
-        $payment = Payment::find($id);
-        if(is_null($payment)){
+        $notification = Notification::find($id);
+        if(is_null($notification)){
             return response()->json('not_found');
         }
-        $payment->delete();
+        $notification->delete();
         return response()->json('Removed successfully.');
     }
 
     /**
-     * Display the specified device payments.
+     * Display the specified user notifications.
      *
-     * @param  int  $id
+     * @param  int  $user_id
      * @return \Illuminate\Http\Response
      */
-    public function getdevicepayments($device)
+    public function getusernotification($user_id)
     {
-        $devicepayments = Payment::with('card', 'deviceinfo', 'pricing')->where('device', $device)->get();
-        return response()->json($devicepayments);
-    }
-
-    /**
-     * Display the specified card payments.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function getcardpayments($id)
-    {
-        $cardpayments = Payment::with('card', 'deviceinfo', 'pricing')->where('card_id', $id)->get();
-        return response()->json($cardpayments);
+        $notification = Notification::with('user')->where('user_id', $user_id)->get();
+        return response()->json($notification);
     }
 
 }

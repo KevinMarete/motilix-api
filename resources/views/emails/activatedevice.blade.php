@@ -4,10 +4,10 @@
 <body  style="font-family: monospace;">
   <main>
     <div>
-      Dear {{$user->firstname}},
+      Dear {{$order->user->firstname}},
       <br/>
       <br/>
-      The account detailed below has requested for a password reset. 
+      See below the details for your device order. 
 
     </div>
 
@@ -17,7 +17,7 @@
           <td style="text-align: left; border-bottom: 1px dotted #ccbcbc;" colspan="3"  height="30">
             <span style="text-decoration: underline;">
               <strong>
-                <span style="color: #092d50; font-size: x-large; text-decoration: underline;">Password reset</span>
+                <span style="color: #092d50; font-size: x-large; text-decoration: underline;">Device activation</span>
               </strong>
             </span>
           </td>
@@ -25,59 +25,55 @@
         <tr>
           <td style="text-align: left; border-bottom: 1px dotted #ccbcbc;" colspan="1"  bgcolor="#ffffff" height="20">
             <strong>
-              <span style="color: #7c7c7c;">First Name.:</span>
+              <span style="color: #7c7c7c;">Order No.:</span>
             </strong>
           </td>
           <td style="text-align: left; border-bottom: 1px dotted #ccbcbc;" bgcolor="#ffffff" colspan="2" >
             <strong>
-              <span style="color: #092d50;">{{$user->firstname}}</span>
+              <span style="color: #092d50;">#{{$order->id}}</span>
             </strong>
           </td>
         </tr> 
         <tr>
           <td style="text-align: left; border-bottom: 1px dotted #ccbcbc;" colspan="1"  bgcolor="#ffffff" height="20">
             <strong>
-              <span style="color: #7c7c7c;">Surname:</span>
+              <span style="color: #7c7c7c;">Order Status:</span>
             </strong>
           </td>
           <td style="text-align: left; border-bottom: 1px dotted #ccbcbc;" bgcolor="#ffffff" colspan="2" >
             <strong>
-              <span style="color: #092d50;">{{$user->surname}}</span>
+              <span style="color: #092d50;">{{$order->status}}</span>
             </strong>
           </td>
         </tr> 
-
         <tr>
           <td style="text-align: left; border-bottom: 1px dotted #ccbcbc;" colspan="1"  bgcolor="#ffffff" height="20">
             <strong>
-              <span style="color: #7c7c7c;">Phone:</span>
+              <span style="color: #7c7c7c;">Activation Code:</span>
             </strong>
           </td>
           <td style="text-align: left; border-bottom: 1px dotted #ccbcbc;" bgcolor="#ffffff" colspan="2" >
             <strong>
-              <span style="color: #092d50;">{{$user->phone_number}}</span>
+              <span style="color: #092d50;">{{$order->code}}</span>
             </strong>
           </td>
-        </tr>  
-        
+        </tr>   
         <tr>
           <td style="text-align: left; border-bottom: 1px dotted #ccbcbc;" colspan="1"  bgcolor="#ffffff" height="20">
             <strong>
-              <span style="color: #7c7c7c;">New Password:</span>
+              <span style="color: #7c7c7c;">Order Details:</span>
             </strong>
           </td>
           <td style="text-align: left; border-bottom: 1px dotted #ccbcbc;" bgcolor="#ffffff" colspan="2" >
             <strong>
-              <span style="color: #092d50;">{{$user->password}}</span>
+              <span style="color: #092d50;">
+                This is an order for a motilix device serial-no: {{$order->device}} to be delivered on {{$order->preferred_delivery_date}} at around {{$order->preferred_delivery_time}} at {{$order->location}}, {{$order->location_details}}. Further details include {{$order->other_details}}
+              </span>
             </strong>
           </td>
         </tr> 
       </tbody>
     </table>
-
-    <div>
-
-    </div>
   </main>
 </body>
 </html>

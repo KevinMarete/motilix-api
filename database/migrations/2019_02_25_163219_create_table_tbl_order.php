@@ -17,14 +17,18 @@ class CreateTableTblOrder extends Migration
             $table->increments('id');
             $table->date('year_of_manufacture');
             $table->string('number_plate');
-            $table->string('physical_address');
+            $table->string('location');
+            $table->string('location_details');
+            $table->date('preferred_delivery_date');
+            $table->time('preferred_delivery_time');
+            $table->string('other_details');
             $table->string('status');
             $table->integer('user_id')->unsigned();
             $table->integer('vehicle_model_id')->unsigned();
             $table->timestamps();
             $table->softDeletes();
 
-            $table->unique(['number_plate', 'user_id', 'model_id']);
+            $table->unique(['number_plate', 'user_id', 'vehicle_model_id']);
 
             $table->foreign('user_id')->references('id')->on('tbl_user')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('vehicle_model_id')->references('id')->on('tbl_vehicle_model')->onUpdate('cascade')->onDelete('cascade');
@@ -41,3 +45,4 @@ class CreateTableTblOrder extends Migration
         Schema::dropIfExists('tbl_order');
     }
 }
+

@@ -52,7 +52,7 @@ class AuthController extends Controller
 	        if (Hash::check($request->password, $user->password)) {
 	        	if(empty($user->email_verified_at)){
 	        		$response = "Email unverified";
-	            	return response(['error' => $response]);
+	            	return response(['error' => $response, 'user_id' => $user->id]);
 	        	}
 	            $token = $user->createToken($this->seeder)->accessToken;
 	            $response = ['token' => $token];
@@ -160,10 +160,49 @@ class AuthController extends Controller
 	public function forgotpasswordemail(Request $request){
 		$user = User::where('email', $request->email)->first();
 	    if ($user) {
+			//Change Old Password
+			$new_password = str_random(8);
+			$user->password = Hash::make($new_password);
+			$user->save();
+			//Send new_password to email
+			$user->password = $new_password;
 			Mail::send(new ForgotPasswordEmail($user));
-			return response(['msg'=> 'Mail sent'], 200);
+			return response(['msg'=> 'Password was reset and sent to your email!'], 200);
 	    } else {
 	        $response = 'User does not exist';
+	        return response(['error' => $response], 401);
+	    }
+	}
+
+	public function activateaccountcode(Request $request){
+		$user = User::find($request->id);
+		if ($user) {
+			$seedstr='motilix';
+			$code = strtoupper(substr(md5($user->id.$user->email.$seedstr), 0, 4));
+			return response(['code'=> $code], 200);
+		} else {
+			$response = 'User does not exist';
+	        return response(['error' => $response], 401);
+	    }
+	}
+
+	public function verifyaccountcode(Request $request){
+		$user = User::find($request->id);
+		if ($user) {
+			$seedstr='motilix';
+			$code = strtoupper(substr(md5($user->id.$user->email.$seedstr), 0, 4));
+			if($code == $request->code){
+				if(empty($user->email_verified_at)){
+	        		$user->email_verified_at = date('Y-m-d H:i:s');
+	        		$user->save();
+	        	}
+				return response(['msg'=> 'Account verified'], 200);
+			}else{
+				$response = 'Account not verified';
+	        	return response(['error' => $response], 401);
+			}
+		} else {
+			$response = 'User does not exist';
 	        return response(['error' => $response], 401);
 	    }
 	}

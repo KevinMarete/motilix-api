@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Installation;
+use App\Pricing;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class InstallationController extends Controller
+class PricingController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,8 @@ class InstallationController extends Controller
      */
     public function index()
     {
-        $installations = Installation::with('payment','order')->get();
-        return response()->json($installations);
+        $pricings = Pricing::all();
+        return response()->json($pricings);
     }
 
     /**
@@ -27,9 +27,9 @@ class InstallationController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, Installation::$rules);
-        $installation = Installation::create($request->all());
-        return response()->json($installation);
+        $this->validate($request, Pricing::$rules);
+        $pricing = Pricing::create($request->all());
+        return response()->json($pricing);
     }
 
     /**
@@ -40,11 +40,11 @@ class InstallationController extends Controller
      */
     public function show($id)
     {
-        $installation = Installation::with('payment.order')->find($id);
-        if(is_null($installation)){
+        $pricing = Pricing::find($id);
+        if(is_null($pricing)){
             return response()->json('not_found');
         }
-        return response()->json($installation);
+        return response()->json($pricing);
     }
 
     /**
@@ -56,13 +56,13 @@ class InstallationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, Installation::$rules);
-        $installation  = Installation::find($id);
-        if(is_null($installation)){
+        $this->validate($request, Pricing::$rules);
+        $pricing  = Pricing::find($id);
+        if(is_null($pricing)){
             return response()->json('not_found');
         }
-        $installation->update($request->all());
-        return response()->json($installation);
+        $pricing->update($request->all());
+        return response()->json($pricing);
     }
 
     /**
@@ -73,11 +73,12 @@ class InstallationController extends Controller
      */
     public function destroy($id)
     {
-        $installation = Installation::find($id);
-        if(is_null($installation)){
+        $pricing = Pricing::find($id);
+        if(is_null($pricing)){
             return response()->json('not_found');
         }
-        $installation->delete();
+        $pricing->delete();
         return response()->json('Removed successfully.');
     }
+
 }

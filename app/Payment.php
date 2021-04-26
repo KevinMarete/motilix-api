@@ -11,11 +11,13 @@ class Payment extends Model
 
     protected $table = 'tbl_payment';
 
-    protected $fillable = ['card_id', 'device_id'];
+    protected $fillable = ['discount_amount', 'card_id', 'device', 'pricing_id'];
 
     public static $rules = [
+        "discount_amount" => "required|numeric",
     	"card_id" => "required|numeric",
-        "device_id" => "required|numeric"
+        "device" => "required",
+        "pricing_id" => "required|numeric"
 	];
 
 	public function card()
@@ -23,9 +25,14 @@ class Payment extends Model
         return $this->belongsTo('App\Card');
     }
 
-    public function user()
+    public function deviceinfo()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\Device', 'device', 'serial_number');
+    }
+
+    public function pricing()
+    {
+        return $this->belongsTo('App\Pricing');
     }
 
     public function installation()
@@ -46,6 +53,11 @@ class Payment extends Model
     public function refund()
     {
         return $this->hasOne('App\Refund');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo('App\User');
     }
 
 }
